@@ -1,0 +1,37 @@
+<%- include('../partials/header') %>
+
+<h1>Produtos</h1>
+
+<a href="/produtos/novo">Novo produto</a>
+
+<table border="1">
+    <tr>
+        <th>Nome</th>
+        <th>Categoria</th>
+        <th>Preço</th>
+        <th>Quantidade</th>
+        <th>Ações</th>
+    </tr>
+
+    <% if (produtos.length === 0) { %>
+        <tr><td colspan="5">Nenhum produto cadastrado.</td></tr>
+    <% } %>
+
+    <% produtos.forEach(p => { %>
+        <tr>
+            <td><%= p.nome %></td>
+            <td><%= p.categoria ? p.categoria.nome : '—' %></td>
+            <td>R$ <%= Number(p.preco).toFixed(2).replace('.', ',') %></td>
+            <td><%= p.quantidade %></td>
+            <td>
+                <a href="/produtos/<%= p.id %>/editar">Editar</a>
+
+                <form action="/produtos/<%= p.id %>/deletar" method="POST" style="display:inline">
+                    <button type="submit" onclick="return confirm('Excluir este produto?')">Excluir</button>
+                </form>
+            </td>
+        </tr>
+    <% }) %>
+</table>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,35 @@
+<%- include('../partials/header') %>
+
+<h1>Categorias</h1>
+
+<% if (erro) { %>
+    <p class="erro"><%= erro %></p>
+<% } %>
+
+<form action="/categorias" method="POST">
+    <label>Nome da categoria:</label>
+    <input type="text" name="nome" required>
+    <button type="submit">Cadastrar</button>
+</form>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Produtos</th>
+    </tr>
+
+    <% if (categorias.length === 0) { %>
+        <tr><td colspan="3">Nenhuma categoria cadastrada.</td></tr>
+    <% } %>
+
+    <% categorias.forEach(c => { %>
+        <tr>
+            <td><%= c.id %></td>
+            <td><%= c.nome %></td>
+            <td><%= c.produtos.length %></td>
+        </tr>
+    <% }) %>
+</table>
+
+<%- include('../partials/footer') %>
